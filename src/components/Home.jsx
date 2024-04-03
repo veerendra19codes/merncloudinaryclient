@@ -7,15 +7,31 @@ const Home = () => {
     // console.log("data:", data);
 
     const getUserData = async () => {
+        // console.log("backend url:", import.meta.env.VITE_BACKEND_URL);
+
         const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/getData`, {
             headers: {
                 "Content-Type": "application/json",
             }
         })
-        // console.log(res.data);
+        console.log(res.data);
+        try {
+            const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/getData`, {
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            });
+            console.log(res.data);
+            setData(res.data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            alert("Error fetching data");
+        }
+
 
         if (res.status == 200) {
             setData(res.data);
+            // console.log("data:", data.reverse());
         }
         else {
             alert("error");
@@ -49,8 +65,10 @@ const Home = () => {
             <h1 className="w-full text-center text-gray-600 text-3xl font-semibold">MERN Cloudinary Project</h1>
 
             <div className="Cards flex flex-wrap gap-8 justify-center items-center">
-
-                {data.length !== 0 && data.map((d) => (
+                {console.log("data:", data.length)}
+                {data.length == 0 ? (
+                    <h1>No users</h1>
+                ) : (data.map((d) => (
 
                     <div key={d._id} className="card flex flex-col w-[400px] h-auto gap-4 p-4 justify-center items-center border-[1px] rounded-xl border-blue-500" >
 
@@ -63,7 +81,8 @@ const Home = () => {
                         </div>
                         <button className="py-2 px-4 rounded-xl bg-red-500 text-white" onClick={() => deleteUser(d._id)}>Delete</button>
                     </div>
-                ))}
+                ))
+                )}
 
             </div>
         </div>
