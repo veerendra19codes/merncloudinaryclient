@@ -20,6 +20,7 @@ const Register = () => {
         // formData.append("imgId",file.filepath)
 
         try {
+            console.log(`${import.meta.env.VITE_BACKEND_URL}/register`);
             const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/register`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data"
@@ -33,8 +34,9 @@ const Register = () => {
             }
             console.log('Response:', res.data);
         } catch (error) {
-            // console.error('Error:', error);
-            console.log("something went wrong");
+            console.log(`${import.meta.env.VITE_BACKEND_URL}/register`);
+            console.error('Error:', error);
+            // console.log("something went wrong");
         }
     };
 
