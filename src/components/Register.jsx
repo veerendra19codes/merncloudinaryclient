@@ -16,6 +16,8 @@ const Register = () => {
         const formData = new FormData();
         formData.append("photo", file);
         formData.append("name", name);
+        console.log("file", file);
+        // formData.append("imgId",file.filepath)
 
         try {
             const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/register`, formData, {
@@ -31,7 +33,8 @@ const Register = () => {
             }
             console.log('Response:', res.data);
         } catch (error) {
-            console.error('Error:', error);
+            // console.error('Error:', error);
+            console.log("something went wrong");
         }
     };
 
